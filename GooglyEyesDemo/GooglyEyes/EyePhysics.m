@@ -41,6 +41,20 @@ CGFloat const kIrisRatio = 0.45;
   return self;
 }
 
+- (CGPoint)point:(CGPoint)point
+    rotatedAngle:(CGFloat)angle
+    aroundAnchor:(CGPoint)anchor {
+  // The rotation is calculated based on the formula:
+  // x' = (point.x - anchor.x) * cosθ - (point.x - anchor.y) * sinθ + anchor.x
+  // y' = (point.x - anchor.x) * sinθ + (point.y - anchor.y) * cosθ + anchor.y
+  
+  CGFloat sinAngle = sinf(-angle / 180 * M_PI);
+  CGFloat cosAngle = cosf(-angle / 180 * M_PI);
+  CGFloat newX = (point.x - anchor.x) * cosAngle - (point.x - anchor.y) * sinAngle + anchor.x;
+  CGFloat newY = (point.x - anchor.x) * sinAngle + (point.y - anchor.y) * cosAngle + anchor.y;
+  return CGPointMake(newX, newY);
+}
+
 // Generate the next position of the iris based on simulated velocity, eye boundaries, gravity,
 // friction, and bounce momentum. This is independent from face/eye motion.
 - (CGRect)nextIrisRectFrom:(CGRect)eyeRect withIrisRect:(CGRect)irisRect {

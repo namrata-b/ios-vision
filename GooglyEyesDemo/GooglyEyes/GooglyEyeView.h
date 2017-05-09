@@ -19,6 +19,13 @@
 // Googly eye rendering.
 @interface GooglyEyeView : UIView
 
-- (void)updateEyeRect:(CGRect)eyeRect;
+// Updates the GooglyEyeView.
+// @param eyeRect The new position and size.
+// @param probability The open eye probability. This affects the view to be drawn as open with
+//        pupils or closed with eyelid.
+// @param angle The view's rotation angle.
+- (void)updateEyeRect:(CGRect)eyeRect
+withEyeOpenProbability:(CGFloat)probability
+          eulerZAngle:(CGFloat)angle;
 
 @end

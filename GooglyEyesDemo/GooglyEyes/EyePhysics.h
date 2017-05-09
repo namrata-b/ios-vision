@@ -25,4 +25,12 @@
 // @param irisRect the last computed iris rect.
 - (CGRect)nextIrisRectFrom:(CGRect)eyeRect withIrisRect:(CGRect)irisRect;
 
+// Calculates the new position for |point| by rotating |angle| degrees around the |anchor| point.
+// @param point The point to be rotated.
+// @param angle The rotation angle.
+// @param anchor The anchor point for the rotation.
+- (CGPoint)point:(CGPoint)point
+    rotatedAngle:(CGFloat)angle
+    aroundAnchor:(CGPoint)anchor;
+
 @end

@@ -21,11 +21,6 @@
 // superimposed googly eyes.
 @protocol FaceTrackerDatasource<NSObject>
 
-// Display scaling offset.
-- (CGFloat)xScale;
-- (CGFloat)yScale;
-- (CGPoint)offset;
-
 // View to display googly eyes.
 - (UIView *)overlayView;
 

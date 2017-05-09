@@ -149,19 +149,6 @@
   return self.overlay;
 }
 
-- (CGFloat)xScale {
-  return self.dataOutput.xScale;
-}
-
-- (CGFloat)yScale {
-  return self.dataOutput.yScale;
-}
-
-- (CGPoint)offset {
-  return self.dataOutput.offset;
-}
-
-
 #pragma mark - GMVMultiDataOutputDelegate
 
 - (id<GMVOutputTrackerDelegate>)dataOutput:(GMVDataOutput *)dataOutput
@@ -191,6 +178,9 @@
 }
 
 - (void)updateCameraSelection {
+  // remove previous googly eyes overlay
+  [[self.overlayView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+  
   [self.session beginConfiguration];
 
   // Remove old inputs

@@ -47,15 +47,25 @@
   CGPoint newLeftEyePosition = face.hasLeftEyePosition ? face.leftEyePosition : CGPointZero;
   CGRect leftEyeRect = [self eyeRect:self.lastLeftEyePosition
                       newEyePosition:newLeftEyePosition
-                            faceRect:face.bounds];
-  [self.leftEyeView updateEyeRect:leftEyeRect];
+                            faceRect:face.bounds
+                              xScale:dataOutput.xScale
+                              yScale:dataOutput.yScale
+                              offset:dataOutput.offset];
+  [self.leftEyeView updateEyeRect:leftEyeRect
+           withEyeOpenProbability:face.leftEyeOpenProbability
+                      eulerZAngle:face.headEulerAngleZ];
 
   // Update right eye rect.
   CGPoint newRightEyePosition = face.hasRightEyePosition ? face.rightEyePosition : CGPointZero;
   CGRect rightEyeRect = [self eyeRect:self.lastRightEyePosition
                        newEyePosition:newRightEyePosition
-                             faceRect:face.bounds];
-  [self.rightEyeView updateEyeRect:rightEyeRect];
+                             faceRect:face.bounds
+                               xScale:dataOutput.xScale
+                               yScale:dataOutput.yScale
+                               offset:dataOutput.offset];
+  [self.rightEyeView updateEyeRect:rightEyeRect
+            withEyeOpenProbability:face.rightEyeOpenProbability
+                       eulerZAngle:face.headEulerAngleZ];
 
   // Remeber last known eyes positions.
   [self updateLastFaceFeature:face];
@@ -89,7 +99,10 @@
 
 - (CGRect)eyeRect:(CGPoint)lastEyePosition
    newEyePosition:(CGPoint)newEyePosition
-         faceRect:(CGRect)faceRect {
+         faceRect:(CGRect)faceRect
+           xScale:(CGFloat)xScale
+           yScale:(CGFloat)yScale
+           offset:(CGPoint)offset {
   CGPoint eye = lastEyePosition;
   if (!CGPointEqualToPoint(newEyePosition, CGPointZero)) {
     eye = newEyePosition;
@@ -102,9 +115,9 @@
                            width,
                            width);
   rect = [self scaledRect:rect
-                   xScale:[self.delegate xScale]
-                   yScale:[self.delegate yScale]
-                   offset:[self.delegate offset]];
+                   xScale:xScale
+                   yScale:yScale
+                   offset:offset];
   return rect;
 }
 
